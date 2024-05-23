@@ -1,2 +1,2 @@
-class IBlock extends Block {
+class IBlock {
 }
