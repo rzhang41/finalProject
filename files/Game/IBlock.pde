@@ -1,0 +1,2 @@
+class IBlock extends Block {
+}

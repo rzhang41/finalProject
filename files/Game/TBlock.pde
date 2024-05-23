@@ -1,0 +1,2 @@
+class TBlock extends Block {
+}

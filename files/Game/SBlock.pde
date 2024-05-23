@@ -1,0 +1,2 @@
+class SBlock extends Block {
+}

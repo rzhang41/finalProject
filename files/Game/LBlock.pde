@@ -1,0 +1,2 @@
+class LBlock extends Block {
+}
