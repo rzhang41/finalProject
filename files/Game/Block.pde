@@ -12,20 +12,31 @@ class Block {
   private int type;
   private int x, y;
   
-  Block(int type, int x, int y) {
+  Block(int type, int newX, int newY) {
     type = this.type;
-    x = this.x;
-    y = this.y;
+    x = newX;
+    y = newY;
+    System.out.println(x + ", " + y);
   }
-  boolean canFall() { 
-    if 
+  boolean canFall(Block[][] map) { 
+    if (y + 1 < map.length) {
+      if (map[y + 1][x] == null) {
+        return true;
+      }
+    }
+    return false;
+  }
     
-  void move() {
-    
+  void moveLeft() {
+    x = x - 40;
+  }
+  void moveRight() {
+    x = x + 40;
   }
   void rotate() {
   }
   void display() {
+    square(x + 20, y + 20, 40);
   }
   int getX() {
     return x;

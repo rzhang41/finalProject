@@ -1,2 +1,2 @@
-class SBlock extends Block {
+class SBlock extends BlockGroup {
 }

@@ -1,2 +1,2 @@
-class TBlock extends Block {
+class TBlock extends BlockGroup {
 }

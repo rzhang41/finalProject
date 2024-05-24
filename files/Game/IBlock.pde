@@ -1,2 +1,2 @@
-class IBlock {
+class IBlock extends BlockGroup {
 }
