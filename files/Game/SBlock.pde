@@ -1,2 +1,0 @@
-class SBlock extends BlockGroup {
-}

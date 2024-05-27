@@ -1,0 +1,2 @@
+class SRBlock extends BlockGroup {
+}
