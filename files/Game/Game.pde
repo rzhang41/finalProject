@@ -39,8 +39,7 @@ void keyPressed() {
     currentPiece.moveR();
   }
   else if (key == 44) {
-    blockList.get(0).moveLeft();
-    redraw();
+    currentPiece.rotateL();
   } else if (key == 46) {
     currentPiece.rotateR();
 

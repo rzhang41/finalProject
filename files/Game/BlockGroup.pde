@@ -51,21 +51,44 @@ class BlockGroup {
   }
   void moveR() {
     int i = 0;
+    boolean canMove = true;
     while (i < blockList.length) {
-      blockList[i].moveRight();
+      if (blockList[i].getX() >= 9) {
+        canMove = false;
+        break;
+      }
       i++;
     }
-    centerX++;
+    i = 0;
+    if (canMove) {
+      while (i < blockList.length) {
+        blockList[i].moveRight();
+        i++;
+      }
+      centerX++;
+    }
+
   }
   void moveL() {
     int i = 0;
+    boolean canMove = true;
     while (i < blockList.length) {
-      blockList[i].moveLeft();
+      if (blockList[i].getX() <= 0) {
+        canMove = false;
+        break;
+      }
       i++;
     }
-    centerX--;
+    i = 0;
+    if (canMove) {
+      while (i < blockList.length) {
+        blockList[i].moveLeft();
+        i++;
+      }
+      centerX--;
+    }
   }
-  void rotateR() {
+  void rotateL() {
     int i = 0;
     while (i < blockList.length) {
       int distanceX = blockList[i].getX() - centerX;
@@ -74,6 +97,46 @@ class BlockGroup {
       blockList[i].setY(centerY + (-1 * distanceX));
       group[2 + distanceY][2 + distanceX] = null;
       group[2 + (-1 * distanceX)][2 + distanceY] = blockList[i];
+      i++;
+    }
+    i = 0;
+    while (i < blockList.length) {
+      if (blockList[i].getX() > 9) {
+        while(blockList[i].getX() > 9) {
+          moveL();
+        }
+      }
+      if (blockList[i].getX() < 0) {
+        while(blockList[i].getX() < 0) {
+          moveR();
+        }
+      }
+      i++;
+    }
+  }
+  void rotateR() {
+    int i = 0;
+    while (i < blockList.length) {
+      int distanceX = blockList[i].getX() - centerX;
+      int distanceY = blockList[i].getY() - centerY;
+      blockList[i].setX(centerX + (-1 * distanceY));
+      blockList[i].setY(centerY + distanceX);
+      group[2 + distanceY][2 + distanceX] = null;
+      group[2 + distanceX][2 + (-1 * distanceY)] = blockList[i];
+      i++;
+    }
+    i = 0;
+    while (i < blockList.length) {
+      if (blockList[i].getX() > 9) {
+        while(blockList[i].getX() > 9) {
+          moveL();
+        }
+      }
+      if (blockList[i].getX() < 0) {
+        while(blockList[i].getX() < 0) {
+          moveR();
+        }
+      }
       i++;
     }
   }
