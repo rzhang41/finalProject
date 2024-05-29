@@ -9,6 +9,7 @@ private Block test;
 void setup() {
   size(500, 800);
   background(0);
+  map = new Block[24][10];
   test = new Block(12, 0, 0);
   blockList.add(test);
   frameRate(30);
@@ -22,6 +23,7 @@ void draw() {
     blockList.get(i).display();
     i++;
   }
+  currentPiece.display();
   if (framesElapsed <= 0) {
     tick();
     framesElapsed = 30;
@@ -30,16 +32,22 @@ void draw() {
   }
 }
 void keyPressed() {
-  if (key == 44) {
+  if (key == 97) {
+    currentPiece.moveL();
+  }
+  if (key == 100) {
+    currentPiece.moveR();
+  }
+  else if (key == 44) {
     blockList.get(0).moveLeft();
     redraw();
   } else if (key == 46) {
-    blockList.get(0).moveRight();
-    redraw();
+    currentPiece.rotateR();
+
   }
 }
 void tick() {
 
   test.down();
-  currentPiece.down();
+  currentPiece.down(map);
 }

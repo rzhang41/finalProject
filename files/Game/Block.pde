@@ -88,4 +88,10 @@ class Block {
   int getType() {
     return type;
   }
+  void setX(int newX) {
+    x = newX;
+  }
+  void setY(int newY) {
+    y = newY;
+  }
 }
