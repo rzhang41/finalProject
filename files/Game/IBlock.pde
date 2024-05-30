@@ -3,7 +3,7 @@ class IBlock extends BlockGroup {
     super(x, y);
     super.type = 2;
     super.block1 = new Block(2, x + 1, y);
-    super.block2 = new Block(2, x, y - 1);
+    super.block2 = new Block(2, x + 2, y);
     super.block3 = new Block(2, x - 1, y);
     super.block4 = new Block(2, x, y);
     super.blockList = new Block[] {super.block1, super.block2, super.block3, super.block4};

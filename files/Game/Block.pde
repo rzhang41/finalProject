@@ -38,6 +38,10 @@ class Block {
       y = y + 1;
     }
   }
+  boolean canMoveLeft(Block[][] map) {
+    boolean canMove = true;
+    return canMove;
+  }
   void moveLeft() {
     if (x != 0) {
       x = x - 1;
@@ -46,6 +50,11 @@ class Block {
   void moveRight() {
     if (x != 9) {
       x = x + 1;
+    }
+  }
+  void moveUp() {
+    if (y >= 0) {
+      y--;
     }
   }
   void rotate() {
@@ -77,6 +86,8 @@ class Block {
     int thisX = (5 * tileWidth) + (x * tileWidth);
     int thisY = 45 + (y * tileWidth);
     square(thisX, thisY, tileWidth);
+    fill(color(red(tileColor) * .85, green(tileColor) * .85, blue(tileColor) * .85));
+    square(thisX + 5, thisY + 5, tileWidth - 10);
     //square(x - (tileWidth / 2), y - (tileWidth / 2), tileWidth);
   }
   int getX() {

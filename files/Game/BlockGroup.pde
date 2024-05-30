@@ -22,7 +22,7 @@ class BlockGroup {
     while (i < blockList.length) {
       int thisX = blockList[i].getX();
       int thisY = blockList[i].getY();
-      if (thisY + 1 == map.length) {
+      if (thisY + 1 >= 24) {
         canFall = false;
         break;
       }
@@ -47,6 +47,8 @@ class BlockGroup {
       blockList[i].display();
       i++;
     }
+    fill(244, 244, 244);
+    ellipse(165 + 30 * centerX, 60 + 30 * centerY, 20, 20);
     
   }
   void moveR() {
@@ -88,6 +90,26 @@ class BlockGroup {
       centerX--;
     }
   }
+  void moveUp() {
+    int i = 0;
+    boolean canMove = true;
+    while (i < blockList.length) {
+      if (blockList[i].getY() <= 0) {
+        canMove = false;
+        break;
+      }
+      i++;
+    }
+    i = 0;
+    if (canMove) {
+      while (i < blockList.length) {
+        blockList[i].moveUp();
+        i++;
+      }
+      centerY--;
+    }
+
+  }
   void rotateL() {
     int i = 0;
     while (i < blockList.length) {
@@ -111,6 +133,11 @@ class BlockGroup {
           moveR();
         }
       }
+      if (blockList[i].getY() > 23) {
+        while (blockList[i].getY() > 23) {
+          moveUp();
+        }
+      }
       i++;
     }
   }
@@ -121,7 +148,9 @@ class BlockGroup {
       int distanceY = blockList[i].getY() - centerY;
       blockList[i].setX(centerX + (-1 * distanceY));
       blockList[i].setY(centerY + distanceX);
+
       group[2 + distanceY][2 + distanceX] = null;
+
       group[2 + distanceX][2 + (-1 * distanceY)] = blockList[i];
       i++;
     }
@@ -135,6 +164,11 @@ class BlockGroup {
       if (blockList[i].getX() < 0) {
         while(blockList[i].getX() < 0) {
           moveR();
+        }
+      }
+      if (blockList[i].getY() > 23) {
+        while (blockList[i].getY() > 23) {
+          moveUp();
         }
       }
       i++;

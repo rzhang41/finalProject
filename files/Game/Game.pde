@@ -9,7 +9,7 @@ private Block test;
 void setup() {
   size(500, 800);
   background(0);
-  map = new Block[24][10];
+  map = new Block[25][10];
   test = new Block(12, 0, 0);
   blockList.add(test);
   frameRate(30);
@@ -38,11 +38,14 @@ void keyPressed() {
   if (key == 100) {
     currentPiece.moveR();
   }
-  else if (key == 44) {
+  if (key == 115) {
+    currentPiece.down(map);
+  }
+  if (key == 44) {
     currentPiece.rotateL();
-  } else if (key == 46) {
+  } 
+  if (key == 46) {
     currentPiece.rotateR();
-
   }
 }
 void tick() {
