@@ -40,6 +40,12 @@ class Block {
   }
   boolean canMoveLeft(Block[][] map) {
     boolean canMove = true;
+    if (map[y][x - 1] != null) {
+      canMove = false;
+    }
+    if (x <= 0) {
+      canMove = false;
+    }
     return canMove;
   }
   void moveLeft() {

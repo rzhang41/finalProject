@@ -33,23 +33,70 @@ void draw() {
 }
 void keyPressed() {
   if (key == 97) {
+    clearPiece();
     currentPiece.moveL();
+    replacePiece();
   }
   if (key == 100) {
+    clearPiece();
     currentPiece.moveR();
+    replacePiece();
   }
   if (key == 115) {
     currentPiece.down(map);
   }
   if (key == 44) {
+    clearPiece();
     currentPiece.rotateL();
+    replacePiece();
   } 
   if (key == 46) {
+    clearPiece();
     currentPiece.rotateR();
+    replacePiece();
   }
 }
 void tick() {
-
+  clearPiece();
   test.down();
   currentPiece.down(map);
+  replacePiece();
+  printMap();
+}
+void clearPiece() {
+  Block[] list = currentPiece.getBlockList();
+  int i = 0;
+  while (i < list.length) {
+    int x = list[i].getX();
+    int y = list[i].getY();
+    map[y][x] = null;
+    i++;
+  }
+}
+void replacePiece() {
+  Block[] list = currentPiece.getBlockList();
+  int i = 0;
+  while (i < list.length) {
+    int x = list[i].getX();
+    int y = list[i].getY();
+    map[y][x] = list[i];
+    i++;
+  }
+}
+void printMap() {
+  int i = 0;
+  String output = "{";
+  while (i < map.length) {
+    int j = 0;
+    while (j < map[0].length) {
+      output = output + map[i][j];
+      if (j != map[0].length - 1) {
+        output = output + ", ";
+      }
+      j++;
+    }
+    output = output + "}" + "\n" + "{";
+    i++;
+  }
+  System.out.println(output);
 }

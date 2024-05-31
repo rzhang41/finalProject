@@ -174,4 +174,7 @@ class BlockGroup {
       i++;
     }
   }
+  Block[] getBlockList() {
+    return blockList;
+  }
 }
