@@ -26,8 +26,8 @@ class Block {
     tileWidth = 30;
   }
   boolean canFall(Block[][] map) { 
-    if ((y + 1) < map.length) {
-      if (map[y + 1][x].getType() == 0) {
+    if (y < 23) {
+      if (map[y + 1][x] == null || (map[y + 1][x].getType() != 0 && map[y + 1][x].getType() % 2 == 0)) {
         return true;
       }
     }
@@ -39,14 +39,30 @@ class Block {
     }
   }
   boolean canMoveLeft(Block[][] map) {
-    boolean canMove = true;
-    if (map[y][x - 1] != null) {
-      canMove = false;
+    if (x - 1 < 0) {
+      return false;
     }
-    if (x <= 0) {
-      canMove = false;
+    else if (x + 1 < 10) {
+      if (map[y][x - 1] != null) {  
+        if (map[y][x - 1].getType() % 2 != 0) {
+          return false;
+        }
+      }
     }
-    return canMove;
+    return true;
+  }
+  boolean canMoveRight(Block[][] map) {
+    if (x + 1 >= 10) {
+      return false;
+    }
+    else if (x + 1 >= 0) {
+      if (map[y][x + 1] != null) {
+        if (map[y][x + 1].getType() % 2 != 0) {
+          return false;
+        }
+      }
+    }
+    return true;
   }
   void moveLeft() {
     if (x != 0) {
@@ -110,5 +126,8 @@ class Block {
   }
   void setY(int newY) {
     y = newY;
+  }
+  void setType(int newType) {
+    type = newType;
   }
 }
