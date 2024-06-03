@@ -34,7 +34,7 @@ class Block {
     return false;
   }
   void down() {
-    if (y != 23) {
+    if (y != 24) {
       y = y + 1;
     }
   }

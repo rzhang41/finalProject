@@ -42,6 +42,13 @@ void draw() {
   } else {
     framesElapsed--;
   }
+  i = 0;
+  while (i < map.length) {
+    if (rowFilled(map[i])) {
+      clearRow(i);
+    }
+    i++;
+  }
 }
 void keyPressed() {
   if (key == 97) {
@@ -99,6 +106,7 @@ void tick() {
     replacePiece();
     
   }
+
 }
 void clearPiece() {
   Block[] list = currentPiece.getBlockList();
@@ -141,4 +149,45 @@ void printMap() {
     i++;
   }
   System.out.println(output + "\n");
+}
+void clearRow(int row) {
+  int i = 0;
+  while (i < map[0].length) {
+    map[row][i] = null;
+    i++;
+  }
+  row--;
+  while (row != 0) {
+    System.out.println("row: " + row);
+    int col = 0;
+    while (col < map[0].length) {
+      if (map[row][col] != null) {
+        if (map[row][col].getType() % 2 == 1) {
+          map[row][col].setY(map[row][col].getY() + 1);
+          map[row + 1][col] = map[row][col];
+          map[row][col] = null;
+
+        }
+      }
+      col++;
+    }
+    row--;
+  }
+  score = score + 1000;
+}
+boolean rowFilled(Block[] row) {
+  boolean rowNotFilled = false;
+  int i = 0;
+  while (i < row.length) {
+    if (row[i] == null) {
+      rowNotFilled = true;
+      break;
+    }
+    if (row[i].getType() % 2 != 1) {
+      rowNotFilled = true;
+      break;
+    }
+    i++;
+  }
+  return !rowNotFilled;
 }
