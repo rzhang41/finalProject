@@ -8,6 +8,7 @@ class IBlock extends BlockGroup {
     super.block4 = new Block(2, x, y);
     super.blockList = new Block[] {super.block1, super.block2, super.block3, super.block4};
   }
+  /*
   void down() {
     super.centerY++;
     int i = 0;
@@ -15,4 +16,5 @@ class IBlock extends BlockGroup {
       super.blockList[i].down();
     }
   }
+  */
 }

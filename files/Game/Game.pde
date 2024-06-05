@@ -2,28 +2,23 @@ private int score;
 private int framesElapsed;
 private float speed;
 private Block[][] map;
-private ArrayList<Block> blockList = new ArrayList<Block>();
-private BlockGroup nextPiece;
+private int nextPiece;
 private BlockGroup currentPiece;
-private Block test;
+
 void setup() {
   size(500, 800);
   background(0);
   map = new Block[25][10];
-  test = new Block(12, 0, 0);
-  blockList.add(test);
+
+
   frameRate(30);
   framesElapsed = 30;
-  currentPiece = new IBlock(5, 0);
-  nextPiece = new IBlock(-5, 0);
+  currentPiece = new JBlock(5, 0);
+  nextPiece = 2;
 }
 void draw() {
   background(0);
   int i = 0;
-  while (i < blockList.size()) {
-    blockList.get(i).display();
-    i++;
-  }
   i = 0;
   while (i < map.length) {
     int j = 0;
@@ -92,7 +87,7 @@ void keyPressed() {
 void tick() {
   if (currentPiece.canFall(map)) {
     clearPiece();
-    test.down();
+
     currentPiece.down(map);
     replacePiece();
     printMap();

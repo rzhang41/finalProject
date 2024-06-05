@@ -101,6 +101,9 @@ class Block {
     else if (type == 11 || type == 12) {
       tileColor = color(145, 7, 250);
     }
+    else if (type == 13 || type == 14) {
+      tileColor = color(255, 234, 0);
+    }
     else {
       tileColor = color(255, 255, 255);
     }
