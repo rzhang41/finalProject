@@ -6,6 +6,7 @@ private Block[][] map;
 private BlockGroup nextPiece;
 private BlockGroup currentPiece;
 private boolean canSwap;
+private BlockGroup test;
 void setup() {
   size(500, 800);
   background(0);
@@ -16,23 +17,14 @@ void setup() {
   nextPiece = randomBlock(currentPiece.getType() / 2);
   score = 0;
   canSwap = true;
-  speed = 30;
-  timeUntilDeposit = 30;
+  speed = 10;
+  timeUntilDeposit = 25;
+  test = new IBlock(5, 0);
 }
 void draw() {
   if (!checkForGameOver()) {
-    background(150);
-    fill(0);
-    rect(150, 45, 300, 720);
-    fill(255, 10, 10);
-    rect(22.5, 37.50, 105.5, 35, 10);
-    fill(0);
-    rect(25, 40, 100, 30, 10);
-    text("SCORE", 57, 35);
-    fill(255);
-    text(score, 40, 60);
-    fill(200, 30, 30);
-    rect(150, 105, 300, 30);
+    createMap();
+    test.displayHolding();
     int i = 0;
     i = 0;
     while (i < map.length) {
@@ -49,8 +41,12 @@ void draw() {
     if (framesElapsed <= 0) {
       tick();
       framesElapsed = speed;
-    } else {
+    } 
+    else {
       framesElapsed--;
+    }
+    if (!currentPiece.canFall(map) && timeUntilDeposit != 0) {
+      timeUntilDeposit--;
     }
     i = 0;
     while (i < map.length) {
@@ -58,9 +54,6 @@ void draw() {
         clearRow(i);
       }
       i++;
-    }
-    if (!currentPiece.canFall(map)) {
-      timeUntilDeposit--;
     }
   }
 }
@@ -106,6 +99,7 @@ void keyPressed() {
         replacePiece();
         framesElapsed = speed;
         canSwap = true;
+        timeUntilDeposit = 25;
       }
       if (key == 32) {
         if (canSwap) {
@@ -297,4 +291,20 @@ boolean checkForGameOver() {
     i++;
   }
   return anyBlocksHere;
+}
+void createMap() { 
+  background(150);
+  fill(0);
+  rect(150, 45, 300, 720);
+  fill(255, 10, 10);
+  rect(22.5, 37.50, 105.5, 35, 10);
+  fill(0);
+  rect(25, 40, 100, 30, 10);
+  text("SCORE", 57, 35);
+  fill(255);
+  text(score, 40, 60);
+  fill(200, 30, 30);
+  rect(150, 105, 300, 30);
+  fill(0);
+  rect(10, 100, 130, 100, 10);
 }

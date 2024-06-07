@@ -20,5 +20,18 @@ class IBlock extends BlockGroup {
   IBlock copy() {
     return new IBlock(4, 0);
   }
-    
+  void displayHolding() {
+    color tileColor = color(52, 207, 235);
+    fill(tileColor);
+    rect(15, 135, 30, 30);
+    rect(45, 135, 30, 30);
+    rect(75, 135, 30, 30);
+    rect(105, 135, 30, 30);
+    fill(color(red(tileColor) * .85, green(tileColor) * .85, blue(tileColor) * .85));
+    rect(20, 140, 20, 20);
+    rect(50, 140, 20, 20);
+    rect(80, 140, 20, 20);
+    rect(110, 140, 20, 20);
+  }
+  
 }

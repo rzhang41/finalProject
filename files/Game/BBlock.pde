@@ -17,4 +17,17 @@ class BBlock extends BlockGroup {
   BBlock copy() {
     return new BBlock(4, 0);
   }
+  void displayHolding() {
+    color tileColor = color(255, 234, 0);
+    fill(tileColor);
+    rect(45, 120, 30, 30);
+    rect(75, 120, 30, 30);
+    rect(45, 150, 30, 30);
+    rect(75, 150, 30, 30);
+    fill(color(red(tileColor) * .85, green(tileColor) * .85, blue(tileColor) * .85));
+    rect(50, 125, 20, 20);
+    rect(80, 125, 20, 20);
+    rect(50, 155, 20, 20);
+    rect(80, 155, 20, 20);
+  }
 }

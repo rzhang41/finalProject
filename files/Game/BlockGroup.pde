@@ -269,4 +269,6 @@ class BlockGroup {
   BlockGroup copy() {
     return null;
   }
+  void displayHolding() {
+  }
 }
