@@ -1,6 +1,7 @@
 private int score;
 private int framesElapsed;
 private int speed;
+private int timeUntilDeposit;
 private Block[][] map;
 private BlockGroup nextPiece;
 private BlockGroup currentPiece;
@@ -16,6 +17,7 @@ void setup() {
   score = 0;
   canSwap = true;
   speed = 30;
+  timeUntilDeposit = 30;
 }
 void draw() {
   if (!checkForGameOver()) {
@@ -56,6 +58,9 @@ void draw() {
         clearRow(i);
       }
       i++;
+    }
+    if (!currentPiece.canFall(map)) {
+      timeUntilDeposit--;
     }
   }
 }
@@ -124,13 +129,16 @@ void tick() {
     printMap();
   }
   else {
-    clearPiece();
-    currentPiece.deposit();
-    replacePiece();
-    currentPiece = nextPiece;
-    nextPiece = randomBlock(currentPiece.getType() / 2);
-    canSwap = true;
-    replacePiece();
+    if (timeUntilDeposit == 0) {
+      clearPiece();
+      currentPiece.deposit();
+      replacePiece();
+      currentPiece = nextPiece;
+      nextPiece = randomBlock(currentPiece.getType() / 2);
+      canSwap = true;
+      replacePiece();
+      timeUntilDeposit = 30;
+    }
     
   }
 
