@@ -15,7 +15,7 @@ void setup() {
   nextPiece = randomBlock(currentPiece.getType() / 2);
   score = 0;
   canSwap = true;
-  speed = 1;
+  speed = 30;
 }
 void draw() {
   if (!checkForGameOver()) {
@@ -29,6 +29,8 @@ void draw() {
     text("SCORE", 57, 35);
     fill(255);
     text(score, 40, 60);
+    fill(200, 30, 30);
+    rect(150, 105, 300, 30);
     int i = 0;
     i = 0;
     while (i < map.length) {
