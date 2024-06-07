@@ -8,4 +8,7 @@ public class JBlock extends BlockGroup {
     super.block4 = new Block(super.type, x + 1, y + 1);
     super.blockList = new Block[] {super.block1, super.block2, super.block3, super.block4};
   }
+  JBlock copy() {
+    return new JBlock(4, 0);
+  }
 }

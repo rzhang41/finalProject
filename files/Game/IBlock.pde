@@ -17,4 +17,8 @@ class IBlock extends BlockGroup {
     }
   }
   */
+  IBlock copy() {
+    return new IBlock(4, 0);
+  }
+    
 }

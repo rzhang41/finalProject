@@ -5,6 +5,7 @@ class BlockGroup {
   private Block block1, block2, block3, block4;
   private int centerX, centerY;
   private int type;
+  private int rotation;
   BlockGroup(int newCenterX, int newCenterY) {
     group = new Block[][] {
       {null, null, null, null, null},
@@ -15,6 +16,7 @@ class BlockGroup {
     };
     centerX = newCenterX;
     centerY = newCenterY;
+    rotation = 0;
   }
   void down(Block[][] map) {
     int i = 0;
@@ -68,7 +70,7 @@ class BlockGroup {
       }
       centerX++;
     }
-
+    
   }
   void moveL(Block[][] map) {
     int i = 0;
@@ -142,6 +144,10 @@ class BlockGroup {
         group[2 + distanceY][2 + distanceX] = null;
         group[2 + (-1 * distanceX)][2 + distanceY] = blockList[i];
         i++;
+      }
+      rotation--;
+      if (rotation < 0) {
+        rotation = 3;
       }
     }
     /*
@@ -220,6 +226,10 @@ class BlockGroup {
         }
         i++;
       }
+      rotation++;
+      if (rotation > 3) {
+        rotation = 0;
+      }
     }
   }
   public void deposit() {
@@ -249,5 +259,14 @@ class BlockGroup {
   }
   int getY() {
     return centerY;
+  }
+  int getType() {
+    return type;
+  }
+  int getRotation() {
+    return rotation;
+  }
+  BlockGroup copy() {
+    return null;
   }
 }

@@ -14,4 +14,7 @@ class BBlock extends BlockGroup {
   @Override
   void rotateR(Block[][] map) {
   }
+  BBlock copy() {
+    return new BBlock(4, 0);
+  }
 }
