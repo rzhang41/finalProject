@@ -271,4 +271,6 @@ class BlockGroup {
   }
   void displayHolding() {
   }
+  void displayNext() {
+  }
 }

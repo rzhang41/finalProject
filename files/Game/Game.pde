@@ -5,6 +5,7 @@ private int timeUntilDeposit;
 private Block[][] map;
 private BlockGroup nextPiece;
 private BlockGroup currentPiece;
+private BlockGroup swap;
 private boolean canSwap;
 private BlockGroup test;
 void setup() {
@@ -17,14 +18,17 @@ void setup() {
   nextPiece = randomBlock(currentPiece.getType() / 2);
   score = 0;
   canSwap = true;
-  speed = 10;
+  speed = 30;
   timeUntilDeposit = 25;
-  test = new IBlock(5, 0);
+  test = new BBlock(5, 0);
+  swap = null;
 }
 void draw() {
   if (!checkForGameOver()) {
     createMap();
-    test.displayHolding();
+    if (swap != null) {
+      swap.displayHolding();
+    }
     int i = 0;
     i = 0;
     while (i < map.length) {
@@ -37,6 +41,7 @@ void draw() {
       }
       i++;
     }
+    nextPiece.displayNext();
     currentPiece.display();
     if (framesElapsed <= 0) {
       tick();
@@ -104,12 +109,22 @@ void keyPressed() {
       if (key == 32) {
         if (canSwap) {
           clearPiece();
-          BlockGroup temp = currentPiece;
-          currentPiece = nextPiece.copy();
-          nextPiece = temp.copy();
-          replacePiece();
-          canSwap = false;
-          framesElapsed = speed;
+          if (swap != null) { 
+            BlockGroup temp = currentPiece;
+            currentPiece = swap.copy();
+            swap = temp.copy();
+            replacePiece();
+            canSwap = false;
+            framesElapsed = speed;
+          }
+          else {
+            swap = currentPiece.copy();
+            currentPiece = nextPiece.copy();
+            nextPiece = randomBlock(100);
+            replacePiece();
+            canSwap = false;
+            framesElapsed = speed;
+          }
         }
       }
     }
@@ -293,6 +308,7 @@ boolean checkForGameOver() {
   return anyBlocksHere;
 }
 void createMap() { 
+  strokeWeight(1);
   background(150);
   fill(0);
   rect(150, 45, 300, 720);
@@ -303,8 +319,34 @@ void createMap() {
   text("SCORE", 57, 35);
   fill(255);
   text(score, 40, 60);
+  int i = 0;
+  while (i < 9) {
+    int x = (6 + i) * 30;
+    fill(100);
+    strokeWeight(.35);
+    stroke(100);
+    line(x, 45, x, 765);
+    i++;
+  }
+  i = 0;
+  while (i < 24) {
+    int y = 45 + (i * 30);
+    fill(100);
+    strokeWeight(.35);
+    stroke(100);
+    line(150, y, 450, y);
+    i++;
+  }
+  strokeWeight(1);
+  stroke(0);
   fill(200, 30, 30);
   rect(150, 105, 300, 30);
+  
   fill(0);
   rect(10, 100, 130, 100, 10);
+  fill(0);
+  text("HOLD", 60, 95);
+  fill(0);
+  rect(10, 225, 130, 100, 10);
+  
 }

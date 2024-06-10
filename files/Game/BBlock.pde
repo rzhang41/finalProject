@@ -30,4 +30,17 @@ class BBlock extends BlockGroup {
     rect(50, 155, 20, 20);
     rect(80, 155, 20, 20);
   }
+  void displayNext() {
+    color tileColor = color(255, 234, 0);
+    fill(tileColor);
+    rect(45, 245, 30, 30);
+    rect(75, 245, 30, 30);
+    rect(45, 275, 30, 30);
+    rect(75, 275, 30, 30);
+    fill(color(red(tileColor) * .85, green(tileColor) * .85, blue(tileColor) * .85));
+    rect(50, 250, 20, 20);
+    rect(80, 250, 20, 20);
+    rect(50, 280, 20, 20);
+    rect(80, 280, 20, 20);
+  }
 }

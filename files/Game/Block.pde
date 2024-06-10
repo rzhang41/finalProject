@@ -83,6 +83,7 @@ class Block {
   }
   void display() {
     color tileColor;
+
     if (type == 1 || type == 2) {
       tileColor = color(52, 207, 235);
     }
