@@ -60,6 +60,9 @@ void draw() {
       i++;
     }
   }
+  else {
+    displayGameOver();
+  }
 }
 void keyPressed() {
     if (!checkForGameOver()) {
@@ -349,7 +352,7 @@ void createMap() {
   rect(10, 225, 130, 100, 10);
   text("NEXT", 60, 220);
   text("CONTROLS", 45, 345);
-  fill(140);
+  fill(130);
   rect(10, 350, 130, 300, 10);
   fill(0);
   text("MOVEMENT", 15, 365);
@@ -376,4 +379,18 @@ void createMap() {
   line(70, 615, 70, 614);
   line(80, 615, 80, 614);
   
+}
+void displayGameOver() {
+  while (currentPiece.canFall(map)) {
+    currentPiece.down(map);
+  }
+  fill(255, 0, 0);
+  rect(150, 45, 300, 720, 2);
+  fill(255, 234, 46);
+  textSize(30);
+  textAlign(CENTER);
+  text("GAME OVER", 150, 385, 300, 400);
+  textSize(15);
+  text("Final Score: " + score, 150, 415, 300, 400);
+  textSize(12);
 }
