@@ -1,9 +1,11 @@
 private int score;
 private int framesElapsed;
 private int speed;
+private int timeUntilDeposit;
 private Block[][] map;
 private BlockGroup nextPiece;
 private BlockGroup currentPiece;
+private BlockGroup swap;
 private boolean canSwap;
 void setup() {
   size(500, 800);
@@ -16,21 +18,16 @@ void setup() {
   score = 0;
   canSwap = true;
   speed = 30;
+  timeUntilDeposit = 15;
+  swap = null;
 }
 void draw() {
   if (!checkForGameOver()) {
-    background(150);
-    fill(0);
-    rect(150, 45, 300, 720);
-    fill(255, 10, 10);
-    rect(22.5, 37.50, 105.5, 35, 10);
-    fill(0);
-    rect(25, 40, 100, 30, 10);
-    text("SCORE", 57, 35);
-    fill(255);
-    text(score, 40, 60);
-    fill(200, 30, 30);
-    rect(150, 105, 300, 30);
+    createMap();
+    if (swap != null) {
+      swap.displayHolding();
+    }
+    nextPiece.displayNext();
     int i = 0;
     i = 0;
     while (i < map.length) {
@@ -43,12 +40,17 @@ void draw() {
       }
       i++;
     }
+    nextPiece.displayNext();
     currentPiece.display();
     if (framesElapsed <= 0) {
       tick();
       framesElapsed = speed;
-    } else {
+    } 
+    else {
       framesElapsed--;
+    }
+    if (!currentPiece.canFall(map) && timeUntilDeposit != 0) {
+      timeUntilDeposit--;
     }
     i = 0;
     while (i < map.length) {
@@ -101,16 +103,27 @@ void keyPressed() {
         replacePiece();
         framesElapsed = speed;
         canSwap = true;
+        timeUntilDeposit = 25;
       }
       if (key == 32) {
         if (canSwap) {
           clearPiece();
-          BlockGroup temp = currentPiece;
-          currentPiece = nextPiece.copy();
-          nextPiece = temp.copy();
-          replacePiece();
-          canSwap = false;
-          framesElapsed = speed;
+          if (swap != null) { 
+            BlockGroup temp = currentPiece;
+            currentPiece = swap.copy();
+            swap = temp.copy();
+            replacePiece();
+            canSwap = false;
+            framesElapsed = speed;
+          }
+          else {
+            swap = currentPiece.copy();
+            currentPiece = nextPiece.copy();
+            nextPiece = randomBlock(100);
+            replacePiece();
+            canSwap = false;
+            framesElapsed = speed;
+          }
         }
       }
     }
@@ -124,13 +137,16 @@ void tick() {
     printMap();
   }
   else {
-    clearPiece();
-    currentPiece.deposit();
-    replacePiece();
-    currentPiece = nextPiece;
-    nextPiece = randomBlock(currentPiece.getType() / 2);
-    canSwap = true;
-    replacePiece();
+    if (timeUntilDeposit == 0) {
+      clearPiece();
+      currentPiece.deposit();
+      replacePiece();
+      currentPiece = nextPiece;
+      nextPiece = randomBlock(currentPiece.getType() / 2);
+      canSwap = true;
+      replacePiece();
+      timeUntilDeposit = 30;
+    }
     
   }
 
@@ -289,4 +305,75 @@ boolean checkForGameOver() {
     i++;
   }
   return anyBlocksHere;
+}
+void createMap() { 
+  strokeWeight(1);
+  background(150);
+  fill(0);
+  rect(150, 45, 300, 720, 2);
+  fill(255, 10, 10);
+  rect(22.5, 37.50, 105.5, 35, 10);
+  fill(0);
+  rect(25, 40, 100, 30, 10);
+  text("SCORE", 57, 35);
+  fill(255);
+  text(score, 40, 60);
+  int i = 0;
+  while (i < 9) {
+    int x = (6 + i) * 30;
+    fill(100);
+    strokeWeight(.35);
+    stroke(100);
+    line(x, 45, x, 765);
+    i++;
+  }
+  i = 0;
+  while (i < 24) {
+    int y = 45 + (i * 30);
+    fill(100);
+    strokeWeight(.35);
+    stroke(100);
+    line(150, y, 450, y);
+    i++;
+  }
+  strokeWeight(1);
+  stroke(0);
+  fill(200, 30, 30);
+  rect(150, 105, 300, 30);
+
+  fill(0);
+  rect(10, 100, 130, 100, 10);
+  fill(0);
+  text("HOLD", 60, 95);
+  fill(0);
+  rect(10, 225, 130, 100, 10);
+  text("NEXT", 60, 220);
+  text("CONTROLS", 45, 345);
+  fill(140);
+  rect(10, 350, 130, 300, 10);
+  fill(0);
+  text("MOVEMENT", 15, 365);
+  text("ROTATION", 15, 420);
+  text("SLOW DROP", 15, 475);
+  text("FAST DROP", 15, 530);
+  text("SWAP", 15, 585);
+  fill(230);
+  rect(20, 370, 30, 30, 5);
+  rect(55, 370, 30, 30, 5);
+  rect(20, 425, 30, 30, 5);
+  rect(55, 425, 30, 30, 5);
+  rect(20, 480, 30, 30, 5);
+  rect(20, 535, 30, 30, 5);
+  rect(20, 590, 110, 30, 5);
+  fill(0);
+  text("A", 28, 385);
+  text("D", 63, 385);
+  text("<", 28, 441);
+  text(">", 63, 441);
+  text("W", 27, 496);
+  text("D", 27, 551);
+  line(70, 615, 80, 615); 
+  line(70, 615, 70, 614);
+  line(80, 615, 80, 614);
+  
 }
