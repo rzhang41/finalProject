@@ -7,7 +7,6 @@ private BlockGroup nextPiece;
 private BlockGroup currentPiece;
 private BlockGroup swap;
 private boolean canSwap;
-private BlockGroup test;
 void setup() {
   size(500, 800);
   background(0);
@@ -19,8 +18,7 @@ void setup() {
   score = 0;
   canSwap = true;
   speed = 30;
-  timeUntilDeposit = 25;
-  test = new BBlock(5, 0);
+  timeUntilDeposit = 15;
   swap = null;
 }
 void draw() {
@@ -29,6 +27,7 @@ void draw() {
     if (swap != null) {
       swap.displayHolding();
     }
+    nextPiece.displayNext();
     int i = 0;
     i = 0;
     while (i < map.length) {
@@ -311,7 +310,7 @@ void createMap() {
   strokeWeight(1);
   background(150);
   fill(0);
-  rect(150, 45, 300, 720);
+  rect(150, 45, 300, 720, 2);
   fill(255, 10, 10);
   rect(22.5, 37.50, 105.5, 35, 10);
   fill(0);
@@ -341,12 +340,40 @@ void createMap() {
   stroke(0);
   fill(200, 30, 30);
   rect(150, 105, 300, 30);
-  
+
   fill(0);
   rect(10, 100, 130, 100, 10);
   fill(0);
   text("HOLD", 60, 95);
   fill(0);
   rect(10, 225, 130, 100, 10);
+  text("NEXT", 60, 220);
+  text("CONTROLS", 45, 345);
+  fill(140);
+  rect(10, 350, 130, 300, 10);
+  fill(0);
+  text("MOVEMENT", 15, 365);
+  text("ROTATION", 15, 420);
+  text("SLOW DROP", 15, 475);
+  text("FAST DROP", 15, 530);
+  text("SWAP", 15, 585);
+  fill(230);
+  rect(20, 370, 30, 30, 5);
+  rect(55, 370, 30, 30, 5);
+  rect(20, 425, 30, 30, 5);
+  rect(55, 425, 30, 30, 5);
+  rect(20, 480, 30, 30, 5);
+  rect(20, 535, 30, 30, 5);
+  rect(20, 590, 110, 30, 5);
+  fill(0);
+  text("A", 28, 385);
+  text("D", 63, 385);
+  text("<", 28, 441);
+  text(">", 63, 441);
+  text("W", 27, 496);
+  text("D", 27, 551);
+  line(70, 615, 80, 615); 
+  line(70, 615, 70, 614);
+  line(80, 615, 80, 614);
   
 }

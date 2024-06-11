@@ -24,4 +24,17 @@ class SRBlock extends BlockGroup {
     rect(65, 125, 20, 20);
     rect(95, 125, 20, 20);
   }
+  void displayNext() {
+    color tileColor = color(102, 237, 81);
+    fill(tileColor);
+    rect(30, 275, 30, 30);
+    rect(60, 275, 30, 30);
+    rect(60, 245, 30, 30);
+    rect(90, 245, 30, 30);
+    fill(color(red(tileColor) * .85, green(tileColor) * .85, blue(tileColor) * .85));
+    rect(35, 280, 20, 20);
+    rect(65, 280, 20, 20);
+    rect(65, 250, 20, 20);
+    rect(95, 250, 20, 20);
+  }
 }
