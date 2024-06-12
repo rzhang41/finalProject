@@ -7,14 +7,21 @@ private BlockGroup nextPiece;
 private BlockGroup currentPiece;
 private BlockGroup swap;
 private boolean canSwap;
+private ArrayList<Integer> currentBag;
 void setup() {
   size(500, 800);
   background(0);
   map = new Block[25][10];
   frameRate(30);
   framesElapsed = 30;
-  currentPiece = randomBlock(100);
-  nextPiece = randomBlock(currentPiece.getType() / 2);
+  currentBag = new ArrayList<Integer>();
+  int i = 1;
+  while (i <= 7) {
+    currentBag.add(i);
+    i++;
+  }
+  currentPiece = randomBlock();
+  nextPiece = randomBlock();
   score = 0;
   canSwap = true;
   speed = 30;
@@ -102,7 +109,7 @@ void keyPressed() {
         currentPiece.deposit();
         replacePiece();
         currentPiece = nextPiece;
-        nextPiece = randomBlock(currentPiece.getType() / 2);
+        nextPiece = randomBlock();
         replacePiece();
         framesElapsed = speed;
         canSwap = true;
@@ -122,7 +129,7 @@ void keyPressed() {
           else {
             swap = currentPiece.copy();
             currentPiece = nextPiece.copy();
-            nextPiece = randomBlock(100);
+            nextPiece = randomBlock();
             replacePiece();
             canSwap = false;
             framesElapsed = speed;
@@ -145,7 +152,7 @@ void tick() {
       currentPiece.deposit();
       replacePiece();
       currentPiece = nextPiece;
-      nextPiece = randomBlock(currentPiece.getType() / 2);
+      nextPiece = randomBlock();
       canSwap = true;
       replacePiece();
       timeUntilDeposit = 30;
@@ -267,29 +274,39 @@ boolean rowFilled(Block[] row) {
   }
   return !rowNotFilled;
 }
-BlockGroup randomBlock(int dropped) {
-  int random = (int)(Math.random() * 7 + 1);
-  while (random == dropped) {
-    random = (int)(Math.random() * 7 + 1);
+BlockGroup randomBlock() {
+  int i = 0;
+  if (currentBag.size() > 0) {
+      int random = (int)(Math.random() * currentBag.size());
+      i = currentBag.get(random);
+      currentBag.remove(random);
+      switch (i) {
+        case 1:
+        return new IBlock(4, 0);
+        case 2:
+        return new LBlock(4, 0);
+        case 3:
+        return new JBlock(4, 0);
+        case 4:
+        return new SRBlock(4, 0);
+        case 5:
+        return new SLBlock(4, 0);
+        case 6:
+        return new TBlock(4, 0);
+        case 7: 
+        return new BBlock(4, 0);
+      }
+      
+      return new IBlock(4, 0);
   }
-  System.out.println("Random: " + random);
-  switch (random) {
-    case 1:
-    return new IBlock(4, 0);
-    case 2:
-    return new LBlock(4, 0);
-    case 3:
-    return new JBlock(4, 0);
-    case 4:
-    return new SRBlock(4, 0);
-    case 5:
-    return new SLBlock(4, 0);
-    case 6:
-    return new TBlock(4, 0);
-    case 7: 
-    return new BBlock(4, 0);
+  else {
+    int j = 1;
+    while (j <= 7) {
+      currentBag.add(j);
+      j++;
+    }
+    return randomBlock();
   }
-  return new IBlock(4, 0);
 }
 boolean checkForGameOver() {
   boolean anyBlocksHere = false;
