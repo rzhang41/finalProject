@@ -87,17 +87,17 @@ void draw() {
 }
 void keyPressed() {
     if (!checkForGameOver() && !beforeStart) {
-      if (key == 97) {
+      if (key == 97) { //A key
         clearPiece();
         currentPiece.moveL(map);
         replacePiece();
       }
-      if (key == 100) {
+      if (key == 100) { //D key
         clearPiece();
         currentPiece.moveR(map);
         replacePiece();
       }
-      if (key == 115) {
+      if (key == 115) { //S key
         clearPiece();
         if (currentPiece.canFall(map)) {
           framesElapsed = speed;
@@ -105,17 +105,17 @@ void keyPressed() {
         currentPiece.down(map);
         replacePiece();
       }
-      if (key == 44) {
+      if (key == 44) { //< key
         clearPiece();
         currentPiece.rotateL(map);
         replacePiece();
       } 
       if (key == 46) {
-        clearPiece();
+        clearPiece(); //> key
         currentPiece.rotateR(map);
         replacePiece();
       }
-      if (key == 119) {
+      if (key == 119) { //W key
         clearPiece();
         while (currentPiece.canFall(map)) {
           currentPiece.down(map);
@@ -129,7 +129,7 @@ void keyPressed() {
         canSwap = true;
         timeUntilDeposit = 25;
       }
-      if (key == 32) {
+      if (key == 32) { //Space key
         if (canSwap) {
           clearPiece();
           if (swap != null) { 
@@ -412,8 +412,8 @@ void createMap() {
   text("D", 63, 385);
   text("<", 28, 441);
   text(">", 63, 441);
-  text("W", 27, 496);
-  text("D", 27, 551);
+  text("S", 27, 496);
+  text("W", 27, 551);
   line(70, 615, 80, 615); 
   line(70, 615, 70, 614);
   line(80, 615, 80, 614);
