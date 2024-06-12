@@ -9,6 +9,7 @@ private BlockGroup swap;
 private boolean canSwap;
 private ArrayList<Integer> currentBag;
 private int lastBlock;
+private boolean beforeStart;
 void setup() {
   size(500, 800);
   background(0);
@@ -29,9 +30,20 @@ void setup() {
   speed = 30;
   timeUntilDeposit = 15;
   swap = null;
+  beforeStart = true;
 }
 void draw() {
-  if (!checkForGameOver()) {
+  if (beforeStart) {
+    createMap();
+    fill(255, 234, 46);
+    textSize(20);
+    textAlign(CENTER);
+    text("-Press any button to start-", 150, 385, 300, 400);
+    textSize(12);
+    textAlign(LEFT);
+    fill(255);
+  }
+  else if (!checkForGameOver()) {
     createMap();
     if (swap != null) {
       swap.displayHolding();
@@ -74,7 +86,7 @@ void draw() {
   }
 }
 void keyPressed() {
-    if (!checkForGameOver()) {
+    if (!checkForGameOver() && !beforeStart) {
       if (key == 97) {
         clearPiece();
         currentPiece.moveL(map);
@@ -139,6 +151,9 @@ void keyPressed() {
         }
       }
     }
+    else if (beforeStart) {
+      beforeStart = false;
+    }
 }
 void tick() {
   if (currentPiece.canFall(map)) {
@@ -146,7 +161,6 @@ void tick() {
 
     currentPiece.down(map);
     replacePiece();
-    printMap();
   }
   else {
     if (timeUntilDeposit == 0) {

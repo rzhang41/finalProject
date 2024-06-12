@@ -22,7 +22,6 @@ class Block {
     type = newType;
     x = newX;
     y = newY;
-    System.out.println(x + ", " + y);
     tileWidth = 30;
   }
   boolean canFall(Block[][] map) { 
