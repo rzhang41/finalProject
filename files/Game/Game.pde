@@ -8,6 +8,7 @@ private BlockGroup currentPiece;
 private BlockGroup swap;
 private boolean canSwap;
 private ArrayList<Integer> currentBag;
+private int lastBlock;
 void setup() {
   size(500, 800);
   background(0);
@@ -22,6 +23,7 @@ void setup() {
   }
   currentPiece = randomBlock();
   nextPiece = randomBlock();
+  lastBlock = 0;
   score = 0;
   canSwap = true;
   speed = 30;
@@ -276,10 +278,16 @@ boolean rowFilled(Block[] row) {
 }
 BlockGroup randomBlock() {
   int i = 0;
+  int random;
   if (currentBag.size() > 0) {
-      int random = (int)(Math.random() * currentBag.size());
+      random = (int)(Math.random() * currentBag.size());
       i = currentBag.get(random);
+      while (i == lastBlock) {
+          random = (int)(Math.random() * currentBag.size());
+          i = currentBag.get(random);
+      }
       currentBag.remove(random);
+      lastBlock = i;
       switch (i) {
         case 1:
         return new IBlock(4, 0);
